@@ -30,9 +30,15 @@ def load_dataset(path: str | Path) -> pd.DataFrame:
     if df.empty:
         raise ValueError("Loaded dataset is empty.")
 
-    required_cols = {"text", "label"}
-    if not required_cols.issubset(df.columns):
-        raise ValueError(f"Dataset must contain columns: {required_cols}")
+    # Check for required columns - support both 'text' and 'email_text'
+    if 'label' not in df.columns:
+        raise ValueError("Dataset must contain 'label' column")
+    
+    # Rename email_text to text if needed for consistency
+    if 'email_text' in df.columns and 'text' not in df.columns:
+        df = df.rename(columns={'email_text': 'text'})
+    elif 'text' not in df.columns:
+        raise ValueError("Dataset must contain either 'text' or 'email_text' column")
 
     LOGGER.info("Loaded dataset with %d rows from %s", len(df), csv_path)
     return df

@@ -8,7 +8,6 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 from tqdm.auto import tqdm
 from transformers import (
-    AdamW,
     AutoModelForSequenceClassification,
     AutoTokenizer,
     get_linear_schedule_with_warmup,
@@ -66,7 +65,7 @@ def train_bert_model(
     train_loader = DataLoader(train_dataset, batch_size=config.bert_batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=config.bert_batch_size, shuffle=False)
 
-    optimizer = AdamW(model.parameters(), lr=config.bert_learning_rate, weight_decay=config.bert_weight_decay)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=config.bert_learning_rate, weight_decay=config.bert_weight_decay)
     total_steps = config.bert_epochs * len(train_loader)
     scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=0, num_training_steps=total_steps)
 

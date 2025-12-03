@@ -11,10 +11,11 @@ class Config:
 
     # Paths
     project_root: Path = Path(__file__).resolve().parent.parent
-    data_path: Path = project_root / "data" / "phishing_emails.csv"
+    data_path: Path = project_root / "data" / "phishing_dataset_1900.csv"
     models_dir: Path = project_root / "models"
     classic_tfidf_svm_path: Path = models_dir / "classic_tfidf_svm.joblib"
     classic_tfidf_rf_path: Path = models_dir / "classic_tfidf_random_forest.joblib"
+    classic_best_model_path: Path = models_dir / "classic_best_model.joblib"
     tfidf_vectorizer_path: Path = models_dir / "tfidf_vectorizer.joblib"
     metadata_scaler_path: Path = models_dir / "metadata_scaler.joblib"
     bert_model_dir: Path = models_dir / "bert_model"

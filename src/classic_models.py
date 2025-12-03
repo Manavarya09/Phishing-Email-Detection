@@ -5,9 +5,8 @@ from typing import Any, Tuple
 
 import joblib
 import numpy as np
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 
 from src.config import config

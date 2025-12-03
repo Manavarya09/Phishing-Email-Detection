@@ -35,7 +35,7 @@ def split_dataset(df: pd.DataFrame) -> Tuple[pd.Series, pd.Series, pd.Series, pd
     df = df.copy()
     df["clean_text"] = df["text"].astype(str).apply(clean_text)
     X = df["clean_text"]
-    y = df["label"]
+    y = df["label"].astype(int)
 
     # First split off validation+test
     temp_size = config.val_size + config.test_size
