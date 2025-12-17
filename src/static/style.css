@@ -19,12 +19,16 @@ body {
     font-family: var(--font-sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .container {
     max-width: 600px;
-    margin: 0 auto;
-    padding: 4rem 1.5rem;
+    width: 100%;
+    padding: 2rem 1.5rem;
 }
 
 header {
@@ -234,7 +238,145 @@ button:disabled {
         height: auto;
     }
 
-    .result-card {
+    .result-container {
+        min-height: 100vh;
+    }
+}
+
+/* Metadata Section */
+.metadata-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.metadata-section h3 {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.metadata-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.meta-label {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+}
+
+.meta-value {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+/* Risk Factors Section */
+.risk-section, .safe-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.risk-section h3, .safe-section h3 {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.risk-list, .safe-list {
+    list-style: none;
+    padding: 0;
+}
+
+.risk-list li, .safe-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f5f5f5;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.risk-list li:last-child, .safe-list li:last-child {
+    border-bottom: none;
+}
+
+.risk-indicator {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.risk-indicator.high {
+    color: #000;
+}
+
+.risk-indicator.medium {
+    opacity: 0.6;
+}
+
+.risk-indicator.low {
+    opacity: 0.3;
+}
+
+/* Recommendation Section */
+.recommendation-section {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: #f9f9f9;
+    border-left: 3px solid var(--black);
+}
+
+.recommendation-section.danger-rec {
+    border-left-color: #000;
+    background: #fafafa;
+}
+
+.recommendation-section.safe-rec {
+    border-left-color: #666;
+    background: #fbfbfb;
+}
+
+.recommendation-section h3 {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.recommendation-text {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.action-text {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-style: italic;
+    opacity: 0.7;
+}    .result-card {
         margin-top: 0;
     }
 }

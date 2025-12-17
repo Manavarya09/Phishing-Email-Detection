@@ -10,3 +10,6 @@ lime
 tqdm
 joblib
 jupyter
+fastapi
+uvicorn[standard]
+python-multipart

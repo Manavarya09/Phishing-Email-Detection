@@ -66,6 +66,71 @@
                 const label = isPhishing ? "PHISHING DETECTED" : "LEGITIMATE EMAIL";
                 const prob = (data.probability * 100).toFixed(1);
 
+                // Build metadata section
+                const metadataHtml = `
+                    <div class="metadata-section">
+                        <h3>Email Analysis</h3>
+                        <div class="metadata-grid">
+                            <div class="meta-item">
+                                <span class="meta-label">Confidence</span>
+                                <span class="meta-value">${data.confidence_level}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">URLs Found</span>
+                                <span class="meta-value">${data.metadata.url_count}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Text Length</span>
+                                <span class="meta-value">${data.metadata.text_length} chars</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Avg Word Length</span>
+                                <span class="meta-value">${data.metadata.avg_word_length}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Build risk factors section
+                let riskHtml = '';
+                if (data.risk_factors && data.risk_factors.length > 0) {
+                    const riskItems = data.risk_factors.map(risk => {
+                        const severityIcon = risk.severity === 'high' ? '●' : risk.severity === 'medium' ? '◐' : '○';
+                        const extraInfo = risk.count ? ` (${risk.count})` : risk.value ? `: ${risk.value}` : '';
+                        const examples = risk.examples ? ` - ${risk.examples.join(', ')}` : '';
+                        return `<li><span class="risk-indicator ${risk.severity}">${severityIcon}</span> ${risk.factor}${extraInfo}${examples}</li>`;
+                    }).join('');
+                    riskHtml = `
+                        <div class="risk-section">
+                            <h3>Risk Factors</h3>
+                            <ul class="risk-list">${riskItems}</ul>
+                        </div>
+                    `;
+                }
+
+                // Build safe indicators section
+                let safeHtml = '';
+                if (data.safe_indicators && data.safe_indicators.length > 0) {
+                    const safeItems = data.safe_indicators.map(safe => {
+                        return `<li>✓ ${safe.indicator}</li>`;
+                    }).join('');
+                    safeHtml = `
+                        <div class="safe-section">
+                            <h3>Safe Indicators</h3>
+                            <ul class="safe-list">${safeItems}</ul>
+                        </div>
+                    `;
+                }
+
+                // Build recommendation section
+                const recommendationHtml = `
+                    <div class="recommendation-section ${isPhishing ? 'danger-rec' : 'safe-rec'}">
+                        <h3>Recommendation</h3>
+                        <p class="recommendation-text">${data.recommendation}</p>
+                        <p class="action-text">${data.action}</p>
+                    </div>
+                `;
+
                 let contentHtml = '';
 
                 if (data.explanation && data.explanation.length > 0) {
@@ -111,8 +176,12 @@
                     <div class="card result-card ${isPhishing ? 'danger' : 'safe'}">
                         <div class="result-header">
                             <h2>${label}</h2>
-                            <div class="confidence">Confidence: ${prob}%</div>
+                            <div class="confidence">Probability: ${prob}%</div>
                         </div>
+                        ${metadataHtml}
+                        ${riskHtml}
+                        ${safeHtml}
+                        ${recommendationHtml}
                         ${contentHtml}
                     </div>
                 `;
